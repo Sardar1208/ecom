@@ -11,6 +11,7 @@ import {
   FlatList,
   StyleSheet,
   StatusBar,
+  Dimensions,
 } from "react-native";
 import { Box, Text, Image, HStack, ScrollView } from "native-base";
 
@@ -18,9 +19,10 @@ import { Box, Text, Image, HStack, ScrollView } from "native-base";
 // it is converted into custom component using this hook.
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-const SIDECARD_LENGTH = 15;
-const SPACING = 5;
-const CARD_LENGTH = 300;
+const { width, height } = Dimensions.get("window");
+const SIDECARD_LENGTH = (width*0.18) /2;
+const SPACING = width*0.02;
+const CARD_LENGTH = width*0.8;
 
 const DATA = [
   {
@@ -45,8 +47,9 @@ interface itemProps {
 
 function Item({ scroll, index }: itemProps) {
   // Stores the shared value opacity.
+  // console.log("width: ", width);
+  // console.log("height: ", height);
   const opacity = useSharedValue(1);
-
   const inputRange = [
     (index - 1) * CARD_LENGTH,
     index * CARD_LENGTH,
@@ -59,18 +62,31 @@ function Item({ scroll, index }: itemProps) {
     Extrapolate.CLAMP
   );
 
-  useEffect(() => {
-    console.log("scale: ", scroll);
-  }, [scroll]);
+  const size = useSharedValue(0.8);
+  const sizeInputRange = [
+    (index - 1) * CARD_LENGTH,
+    index * CARD_LENGTH,
+    (index + 1) * CARD_LENGTH,
+  ];
+  size.value = interpolate(
+    scroll,
+    sizeInputRange,
+    [0.8, 1, 0.8],
+    Extrapolate.CLAMP
+  );
+
   const cardStyle = useAnimatedStyle(() => {
     return {
-      // transform: [{ scaleY: scale.value }],
+      transform: [{ scaleY: size.value }],
       opacity: opacity.value,
     };
   });
 
   return (
-    <Animated.View style={[styles.card, cardStyle]}>
+    <Animated.View style={[styles.card, cardStyle, {
+      marginLeft: index == 0 ? SIDECARD_LENGTH : SPACING,
+      marginRight: index == 2 ? SIDECARD_LENGTH : SPACING,
+    }]}>
       <Image
         source={require("../assets/images/temp.jpg")}
         alt={"product banner"}
@@ -88,7 +104,13 @@ export default function Carousel() {
     <Animated.View>
       <AnimatedFlatList
         scrollEventThrottle={16}
+        showsHorizontalScrollIndicator={false}
         horizontal={true}
+        decelerationRate={0.8}
+        snapToInterval={CARD_LENGTH + (SPACING * 1.5)}
+        disableIntervalMomentum={true}
+        disableScrollViewPanResponder={true}
+        snapToAlignment={"center"}
         data={DATA}
         renderItem={({ item, index }) => {
           console.log("index: ", index);

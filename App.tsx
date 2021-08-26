@@ -5,7 +5,7 @@ import { NativeBaseProvider, Box } from 'native-base';
 export default function App() {
   return (
     <NativeBaseProvider>
-      <Box>
+      <Box bg={"gray.100"} height={"100%"}>
         <HomePage />
       </Box>
     </NativeBaseProvider>
