@@ -113,7 +113,7 @@ export default function Carousel() {
         snapToAlignment={"center"}
         data={DATA}
         renderItem={({ item, index }) => {
-          console.log("index: ", index);
+          // console.log("index: ", index);
           // Item is rendered having props - (scroll.x and index)
           return <Item scroll={scrollX} index={index} />;
         }}
@@ -122,7 +122,7 @@ export default function Carousel() {
         onScroll={(event) => {
           // the scroll.x value is updated whenever list is scrolled.
           setScrollX(event.nativeEvent.contentOffset.x);
-          console.log(scrollX);
+          // console.log(scrollX);
         }}
       />
     </Animated.View>
