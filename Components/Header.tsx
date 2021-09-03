@@ -65,11 +65,12 @@ export default function Header() {
 
           {/* The dynamic search bar */}
           <Box
-            backgroundColor={"white"}
+            backgroundColor={"green.400"}
             rounded={"full"}
-            shadow={9}
+            // shadow={4}
             position={"absolute"}
             right={0}
+            height={50}
           >
             <View
               style={{
@@ -142,7 +143,7 @@ export default function Header() {
               >
                 <Icon
                   as={<VectorIcons.Ionicons name={"search"} />}
-                  color={"violet.400"}
+                  color={"white"}
                   style={{
                     width: 30,
                   }}
