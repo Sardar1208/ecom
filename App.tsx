@@ -1,5 +1,6 @@
 import React from "react";
 import HomePage from "./Screens/HomePage";
+import BrowsePage from "./Screens/BrowsePage";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider, Box } from "native-base";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -19,7 +20,13 @@ export default function App() {
                 headerShown: false,
               }}
             />
-            <Tab.Screen name="Options" component={HomePage} />
+            <Tab.Screen
+              name="Options"
+              component={BrowsePage}
+              options={{
+                headerShown: false,
+              }}
+            />
           </Tab.Navigator>
         </NavigationContainer>
       </Box>
