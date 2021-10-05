@@ -18,6 +18,7 @@ export default function Header() {
   const width = useSharedValue(0); // width of the search bar
   const textOpacity = useSharedValue(1); // opacity of the grettings text
   const barOpacity = useSharedValue(0); // opacity of the search bar
+  const barColor = useSharedValue("green");
   const ref_input = useRef(); // ref to the text input for focus and blur events
 
   /* animated styles for bar and greetings text */
@@ -112,7 +113,7 @@ export default function Header() {
 
                 {/* Search bar */}
                 <TextInput
-                  placeholder="Artists, songs, or podcasts"
+                  placeholder="Search across all products"
                   placeholderTextColor={"grey"}
                   style={{
                     fontWeight: "bold",

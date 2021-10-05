@@ -20,7 +20,11 @@ import {
 const window = Dimensions.get("window");
 const SCR_WIDTH = window.width;
 
-export default function BrowsePage() {
+interface BrowsePageInterface {
+  navigation: any;
+}
+
+export default function BrowsePage({ navigation }: BrowsePageInterface) {
   return (
     <Box safeArea backgroundColor={"white"}>
       <Box
@@ -28,7 +32,7 @@ export default function BrowsePage() {
         flexDirection={"row"}
         justifyContent={"space-between"}
         mx={4}
-        mt={4}
+        my={4}
       >
         <Box flex={1}>
           <Input
@@ -55,63 +59,64 @@ export default function BrowsePage() {
         </Pressable>
       </Box>
 
-      <ScrollView
-        mx={8}
-        mt={4}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-      >
-        <HStack space={4}>
-          <Pressable>
-            <Text fontWeight={"bold"} color={"green.400"}>
-              ALL
-            </Text>
-          </Pressable>
-          <Pressable>
-            <Text fontWeight={"bold"} color={"gray.400"}>
-              ELECTRONICS
-            </Text>
-          </Pressable>
-          <Pressable>
-            <Text fontWeight={"bold"} color={"gray.400"}>
-              FASHION
-            </Text>
-          </Pressable>
-          <Pressable>
-            <Text fontWeight={"bold"} color={"gray.400"}>
-              ACCESSORIES
-            </Text>
-          </Pressable>
-          <Pressable>
-            <Text fontWeight={"bold"} color={"gray.400"}>
-              BOOKS
-            </Text>
-          </Pressable>
-          <Pressable>
-            <Text fontWeight={"bold"} color={"gray.400"}>
-              HARDWARE
-            </Text>
-          </Pressable>
-          <Pressable>
-            <Text fontWeight={"bold"} color={"gray.400"}>
-              GAMING
-            </Text>
-          </Pressable>
-        </HStack>
-      </ScrollView>
+      <ScrollView>
+        <ScrollView
+          mx={8}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          <HStack space={4}>
+            <Pressable>
+              <Text fontWeight={"bold"} color={"green.400"}>
+                ALL
+              </Text>
+            </Pressable>
+            <Pressable>
+              <Text fontWeight={"bold"} color={"gray.400"}>
+                ELECTRONICS
+              </Text>
+            </Pressable>
+            <Pressable>
+              <Text fontWeight={"bold"} color={"gray.400"}>
+                FASHION
+              </Text>
+            </Pressable>
+            <Pressable>
+              <Text fontWeight={"bold"} color={"gray.400"}>
+                ACCESSORIES
+              </Text>
+            </Pressable>
+            <Pressable>
+              <Text fontWeight={"bold"} color={"gray.400"}>
+                BOOKS
+              </Text>
+            </Pressable>
+            <Pressable>
+              <Text fontWeight={"bold"} color={"gray.400"}>
+                HARDWARE
+              </Text>
+            </Pressable>
+            <Pressable>
+              <Text fontWeight={"bold"} color={"gray.400"}>
+                GAMING
+              </Text>
+            </Pressable>
+          </HStack>
+        </ScrollView>
 
-      <Box mt={4} mx={4} display={"flex"} flexDirection={"row"}>
-        <Box flex={1} mr={1}>
-          <BrowseItem />
-          <BrowseItem />
-          <BrowseItem />
+        <Box mt={4} mx={4} display={"flex"} flexDirection={"row"}>
+          <Box flex={1} mr={1}>
+            <BrowseItem navigation={navigation} />
+            <BrowseItem navigation={navigation} />
+            <BrowseItem navigation={navigation} />
+          </Box>
+          <Box flex={1} ml={1} mt={8}>
+            <BrowseItem navigation={navigation} />
+            <BrowseItem navigation={navigation} />
+            <BrowseItem navigation={navigation} />
+          </Box>
         </Box>
-        <Box flex={1} ml={1} mt={8}>
-          <BrowseItem />
-          <BrowseItem />
-          <BrowseItem />
-        </Box>
-      </Box>
+      </ScrollView>
 
       {/* <Box
         backgroundColor={"green.400"}
