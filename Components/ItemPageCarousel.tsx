@@ -18,7 +18,7 @@ import { SharedElement } from "react-navigation-shared-element";
 
 export default function ItemPageCarousel() {
   return (
-    <Box position={"absolute"}>
+    <Box>
       <Box height={500} overflow={"hidden"}>
         <Image
           source={require("../assets/images/temp.jpg")}

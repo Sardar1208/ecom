@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import ItemPageCarousel from "../Components/ItemPageCarousel";
@@ -29,12 +29,15 @@ const SCR_HEIGHT = window.height;
 const ITEM_DATA = [
   {
     id: 1,
+    item: <ItemPageInfoA />,
   },
   {
     id: 2,
+    item: <ItemPageInfoB />,
   },
   {
     id: 3,
+    item: <ItemPageInfoC />,
   },
 ];
 
@@ -43,37 +46,100 @@ interface ItemPageInterface {
 }
 
 export default function ItemPage({ navigation }: ItemPageInterface) {
+  const [scrollY, setScrollY] = useState(0);
+  const [scrollX, setScrollX] = useState(0);
+  const [initialHeight, setInitialHeight] = useState(0);
+  const [BHeight, setBHeight] = useState(0);
+  const [CHeight, setCHeight] = useState(0);
+
+  useEffect(() => {
+    console.log("width: ", SCR_WIDTH);
+  }, []);
+
   return (
     <Box safeArea minHeight={"100%"}>
       <ItemPageCarousel />
-      <ScrollView>
-        <Container
-          style={{ height: SCR_HEIGHT * 0.6, backgroundColor: "transparent" }}
-        />
-        <Box backgroundColor={"white"} borderTopRadius={26}>
+      <ScrollView
+        position={"absolute"}
+        bottom={0}
+        onScroll={(e) => {
+          setScrollY(e.nativeEvent.contentOffset.y);
+          // console.log(e.nativeEvent.contentOffset.y);
+        }}
+      >
+        <Box
+          backgroundColor={"white"}
+          borderTopRadius={26}
+          // style={{ height: }}
+        >
           {/* <FlatList
-            horizontal={true}
             data={ITEM_DATA}
+            horizontal={true}
             keyExtractor={(item) => item.id}
-            renderItem={({item,index}) =>{
+            renderItem={({ item, index }) => {
+              // let InfoComp = item.item;
+              return (
+                <Box
+                  style={{ width: SCR_WIDTH, paddingHorizontal: 20 }}
+                  onLayout={(e) => {
+                    console.log(index + " : " + e.nativeEvent.layout.height);
+                    // if(index == 0){
 
+                    // }
+                  }}
+                  display={"flex"}
+                >
+                  {item.item}
+                </Box>
+              );
             }}
           /> */}
-          <ScrollView horizontal={true}>
-            <Box style={{ width: SCR_WIDTH, paddingHorizontal: 20 }}>
+          <ScrollView
+            horizontal={true}
+            snapToInterval={SCR_WIDTH}
+            disableIntervalMomentum={true}
+            showsHorizontalScrollIndicator={false}
+            onScroll={(e) => {
+              setScrollX(e.nativeEvent.contentOffset.x);
+              if (e.nativeEvent.contentOffset.x >= SCR_WIDTH) {
+              }
+              // console.log(e.nativeEvent.contentOffset.x);
+            }}
+          >
+            <Box
+              style={{ width: SCR_WIDTH, paddingHorizontal: 20 }}
+              onLayout={(e) => {
+                setInitialHeight(e.nativeEvent.layout.height);
+                console.log("layout: ", e.nativeEvent.layout);
+              }}
+            >
               <ItemPageInfoA />
             </Box>
-            <Box style={{ width: SCR_WIDTH, paddingHorizontal: 20 }}>
+            <Box
+              style={{
+                width: SCR_WIDTH,
+                paddingHorizontal: 20,
+                height: initialHeight,
+              }}
+            >
               <ItemPageInfoB />
             </Box>
-            <Box style={{ width: SCR_WIDTH, paddingHorizontal: 20 }}>
+            <Box
+              style={{
+                width: SCR_WIDTH,
+                paddingHorizontal: 20,
+                height: initialHeight,
+              }}
+            >
               <ItemPageInfoC />
             </Box>
-          </ScrollView>
+            </ScrollView>
         </Box>
       </ScrollView>
     </Box>
   );
 }
-
-// export default ItemPage;
+{
+  /* 
+// export default ItemPage; */
+}

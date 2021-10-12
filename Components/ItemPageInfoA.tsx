@@ -76,7 +76,7 @@ export default function ItemPageInfoA() {
         <Text fontSize={"md"} fontWeight={"bold"} color={"gray.500"} mb={2}>
           Quantity
         </Text>
-        <HStack space={4} mt={2}>
+        <HStack space={4} mt={2} mb={6}>
           <Pressable>
             <Box
               backgroundColor={"green.50"}
